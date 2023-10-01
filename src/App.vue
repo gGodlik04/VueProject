@@ -1,11 +1,17 @@
 <template>
     <div>
-        <div>
-            <button v-on:click="addLike">Like</button>
-            <button @click="addDislike">Dislike</button>
-        </div>
-        <div>Hello world</div>
-        <div>Count likes <strong>{{ likes }}</strong></div>
+       <div class ="post">
+            <div>Название бразуера:<strong> Chrome</strong></div>
+            <div>Название языка:<strong> JavaScript</strong></div>
+       </div>
+       <div class ="post">
+            <div>Название бразуера:<strong> Chrome</strong></div>
+            <div>Название языка:<strong> JavaScript</strong></div>
+       </div>
+       <div class ="post">
+            <div>Название бразуера:<strong> Chrome</strong></div>
+            <div>Название языка:<strong> JavaScript</strong></div>
+       </div>
     </div>
 </template>
 
@@ -13,7 +19,8 @@
 export default {
     data() {
         return {
-            likes: 6,
+            likes: 0,
+            dislikes: 0,
         }
     },
     methods: {
@@ -21,12 +28,23 @@ export default {
             this.likes += 1;
         },
         addDislike () {
-            this.likes -= 1;
+            this.dislikes += 1;
         }
     }
 }
 </script>
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
+    .post {
+        padding: 1em;
+        border: 0.2rem solid black;
+        border-radius: 0.5em;
+        margin-bottom: 1em;
+    }
 </style>
