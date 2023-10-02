@@ -4,14 +4,14 @@
             <h4 class="title">Создание поста</h4>
             <input  
                 class="input" 
-                @input="inputTitle"
+                @input="title = $event.target.value"
                 type="text" 
                 placeholder="Название" 
                 v-bind:value="title"
             >
             <input 
                 class="input" 
-                @input="inputBody"
+                @input="body = $event.target.value"
                 type="text" 
                 placeholder="Название"
                 v-bind:value="body"
@@ -24,8 +24,8 @@
             </button>
         </form>
         <div class="post" v-for="post in posts">
-            <div><strong>Название</strong> {{ post.title }}</div>
-            <div><strong>Описание</strong> {{ post.body }}</div>
+            <div><strong>Название: </strong> {{ post.title }}</div>
+            <div><strong>Описание: </strong> {{ post.body }}</div>
         </div>
     </div>
 </template>
@@ -54,12 +54,6 @@ export default {
             this.title = '';
             this.body = '';
         },
-        inputTitle(event) {
-            this.title = event.target.value;
-        },
-        inputBody(event) {
-            this.body = event.target.value;
-        }
     }
 }
 </script>
