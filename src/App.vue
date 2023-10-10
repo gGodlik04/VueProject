@@ -1,9 +1,11 @@
 <template>
     <div class="container">
-        <PostForm/>
+        <PostForm
+            @create="createPost"
+        />
         <PostList 
             :posts="posts"
-            @create="createPost"
+            @removePost="removePost"
         />
     </div>
 </template>
@@ -23,13 +25,14 @@ export default {
                 { id: 2, title: "Python", body: "Python language" },
                 { id: 3, title: "React", body: "React library" },
             ],
-            title:'',
-            body:'',
         }
     },
     methods: {
        createPost(post) {
-        console.log(post);
+            this.posts.push(post);
+       },
+       removePost (post) {
+            this.posts = this.posts.filter(p => p.id !== post.id)
        }
     }
 }

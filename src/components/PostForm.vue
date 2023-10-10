@@ -1,24 +1,22 @@
 <template>
     <form @submit.prevent>
             <h4 class="title">Создание поста</h4>
-            <input  
+            <InputComponent 
                 v-model="post.title"
-                class="input" 
                 type="text" 
                 placeholder="Название" 
-            >
-            <input 
+            />
+            <InputComponent
                 v-model="post.body"
-                class="input" 
                 type="text" 
                 placeholder="Название"
-            >
-            <button 
-                class="btn"
+            />
+            <Button
+                class="form__button"
                 @click="createPost"
             >
                 Создать
-            </button>
+            </Button>
         </form>
 </template>
 
@@ -30,47 +28,34 @@ export default {
                 title: '',
                 body: '',
             }
-        }
+        };
     },
     methods: {
         createPost() {
-            this.post.id = Date.now(); 
-            this.$emit('create',this.post)
-            this.post = {
-                title: '',
-                body: '',
+            if (this.post.body != '' && this.post.title != ''){
+                this.post.id = Date.now();
+                this.$emit('create', this.post);
+                this.post = {
+                    title: '',
+                    body: '',
+                };
+            } else {
+                alert ('Введите данные')
             }
         },
-    }
+    },
 }
 </script>
 
 <style>
-.input {
-    width: 100%;
-    height: 3em;
-    border: 0.2rem solid #ffffff;
-    padding: 5px;
-    background-color: #001733;
-    border-radius: 0.5em;
-    margin-bottom: 1em;
-    color: #ffffff;
-}
 
 form {
     display: flex;
     flex-direction: column;
 }
 
-.btn {
-    width: max-content;
-    color: #ffffff;
-    padding: 0.5em;
-    align-self: flex-end;
-    border: 0.15em solid #ffffff;
-    background-color: #001733;
-    border-radius: 0.5em;
-    font-size: 1em;
+.form__button {
     margin-bottom: 1em;
+    align-self: flex-end;
 }
 </style>
