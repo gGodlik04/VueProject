@@ -5,12 +5,18 @@
         >
             Страница с постами
         </h1>
-        <Button 
-            class="post-form-add" 
-            @click="modalShow"
-        >
-            Добавить пост
-        </Button>
+        <div class="app_buttons">
+            <Button 
+                class="post-form-add" 
+                @click="modalShow"
+            >
+                Добавить пост
+            </Button>
+            <SelectPart 
+                v-model="selectedSort"
+                :options="sortOptions"
+            />
+        </div>
         <ModalWindow v-model:show="modalVisible">
             <PostForm
             @create="createPost"
@@ -44,6 +50,11 @@ export default {
             posts: [],
             modalVisible: false,
             isLoading: false,
+            selectedSort: '',
+            sortOptions: [
+                {value: 'title', name: 'По названию'},
+                {value: 'body', name: 'По описанию'},
+            ]
         }
     },
     methods: {
@@ -59,21 +70,26 @@ export default {
        },
        async fetchPosts() {
         try {
-            setTimeout(async () => {
                 this.isLoading = true;
                 const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
                 this.posts = response.data;    
-                this.isLoading = false;
-            }, 1000)
         } catch (error) {
             console.log(e);
         } finally {
+            this.isLoading = false;
         }
        },
     },
     mounted() {
-         this.fetchPosts();
-    }
+        this.fetchPosts();
+    },
+    computed: {
+        sortPosts() {
+            return [...this.posts].sort((post1, post2) => {
+                return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
+            })
+        }
+    },  
 }
 </script>
 
@@ -105,5 +121,10 @@ body {
     text-align: center;
     margin-top: 25px;
     width: 15%;
+}
+
+.app_buttons {
+    display: flex;
+    justify-content: space-between;
 }
 </style>
