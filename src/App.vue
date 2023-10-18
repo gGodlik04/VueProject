@@ -24,7 +24,7 @@
         </ModalWindow>
         <PostList 
             v-if="!isLoading"
-            :posts="posts"
+            :posts="sortPosts"
             @removePost="removePost"
         />
         <div 
