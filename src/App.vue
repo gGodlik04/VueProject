@@ -1,17 +1,32 @@
 <template>
     <div class="container">
-        <h1 class="title">Страница с постами</h1>
-        <Button class="post-form-add" @click="modalShow">Добавить пост</Button>
-        <Button  @click="fetchPosts">Загрузить посты</Button>
+        <h1 
+            class="title"
+        >
+            Страница с постами
+        </h1>
+        <Button 
+            class="post-form-add" 
+            @click="modalShow"
+        >
+            Добавить пост
+        </Button>
         <ModalWindow v-model:show="modalVisible">
             <PostForm
             @create="createPost"
             />
         </ModalWindow>
         <PostList 
-        :posts="posts"
-        @removePost="removePost"
+            v-if="!isLoading"
+            :posts="posts"
+            @removePost="removePost"
         />
+        <div 
+            class="loading" 
+            v-if="isLoading"
+        >
+            Идет загрузка...
+        </div>
     </div>
 </template>
 
@@ -26,12 +41,9 @@ export default {
 },
     data() {
         return {
-            posts: [
-                { id: 1, title: "JavaScript", body: "Js language" },
-                { id: 2, title: "Python", body: "Python language" },
-                { id: 3, title: "React", body: "React library" },
-            ],
+            posts: [],
             modalVisible: false,
+            isLoading: false,
         }
     },
     methods: {
@@ -47,12 +59,20 @@ export default {
        },
        async fetchPosts() {
         try {
-            const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
-            console.log(response);
+            setTimeout(async () => {
+                this.isLoading = true;
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+                this.posts = response.data;    
+                this.isLoading = false;
+            }, 1000)
         } catch (error) {
             console.log(e);
+        } finally {
         }
-       }
+       },
+    },
+    mounted() {
+         this.fetchPosts();
     }
 }
 </script>
@@ -71,6 +91,9 @@ body {
 }
 
 .container {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 50px;
 }
 
