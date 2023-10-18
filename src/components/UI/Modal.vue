@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-    name: 'modalWindow',
+    name: 'ModalWindow',
     props: {
         show: {
             type: Boolean,

@@ -2,11 +2,12 @@
     <div class="container">
         <h1 class="title">Страница с постами</h1>
         <Button class="post-form-add" @click="modalShow">Добавить пост</Button>
-        <Modal v-model:show="modalVisible">
+        <Button  @click="fetchPosts">Загрузить посты</Button>
+        <ModalWindow v-model:show="modalVisible">
             <PostForm
             @create="createPost"
             />
-        </Modal>
+        </ModalWindow>
         <PostList 
         :posts="posts"
         @removePost="removePost"
@@ -15,16 +16,13 @@
 </template>
 
 <script>
-import PostForm from "@/components/PostForm.vue"
-import PostList from "@/components/PostList.vue"
-import Modal from "./components/UI/Modal.vue";
-import Button from "./components/UI/Button.vue";
+import PostForm from "@/components/PostForm.vue";
+import PostList from "@/components/PostList.vue";
+import axios from 'axios';
 
 export default {
     components: {
     PostForm, PostList,
-    Modal,
-    Button
 },
     data() {
         return {
@@ -47,8 +45,13 @@ export default {
        modalShow() {
         this.modalVisible = true;
        },
-       fetchPosts() {
-        
+       async fetchPosts() {
+        try {
+            const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+            console.log(response);
+        } catch (error) {
+            console.log(e);
+        }
        }
     }
 }
