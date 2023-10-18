@@ -1,6 +1,6 @@
 <template>
-    <div class="dialog" v-if="show === true ">
-        <div class="dialog__content">
+    <div class="dialog" @click="hideModal" v-if="show === true ">
+        <div @click.stop class="dialog__content">
             <slot></slot>
         </div>
     </div>
@@ -12,6 +12,11 @@ export default {
         show: {
             type: Boolean,
             default: false,
+        }
+    },
+    methods: {
+        hideModal() {
+            this.$emit('update:show', false)
         }
     }
 }
@@ -26,10 +31,11 @@ export default {
         position: fixed;
         display: flex;
     }
-
+    
     .dialog__content {
         margin: auto;
         background-color: #002451;
+        border: 2px #fff solid;
         border-radius: 15px;
         padding: 1.5rem;
         min-height: 15rem;

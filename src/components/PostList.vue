@@ -40,5 +40,6 @@ export default {
         font-size: 25px;
         text-align: center;
         margin-bottom: 20px;
+        margin-top: 100px;
     }
 </style>

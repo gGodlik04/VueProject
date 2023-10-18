@@ -1,13 +1,15 @@
 <template>
     <div class="container">
-        <Modal :show="true">
+        <h1 class="title">Страница с постами</h1>
+        <Button class="post-form-add" @click="modalShow">Добавить пост</Button>
+        <Modal v-model:show="modalVisible">
             <PostForm
-                @create="createPost"
+            @create="createPost"
             />
         </Modal>
         <PostList 
-            :posts="posts"
-            @removePost="removePost"
+        :posts="posts"
+        @removePost="removePost"
         />
     </div>
 </template>
@@ -16,11 +18,13 @@
 import PostForm from "@/components/PostForm.vue"
 import PostList from "@/components/PostList.vue"
 import Modal from "./components/UI/Modal.vue";
+import Button from "./components/UI/Button.vue";
 
 export default {
     components: {
     PostForm, PostList,
-    Modal
+    Modal,
+    Button
 },
     data() {
         return {
@@ -29,14 +33,22 @@ export default {
                 { id: 2, title: "Python", body: "Python language" },
                 { id: 3, title: "React", body: "React library" },
             ],
+            modalVisible: false,
         }
     },
     methods: {
        createPost(post) {
             this.posts.push(post);
+            this.modalVisible = false;
        },
        removePost (post) {
-            this.posts = this.posts.filter(p => p.id !== post.id)
+            this.posts = this.posts.filter(p => p.id !== post.id);
+       },
+       modalShow() {
+        this.modalVisible = true;
+       },
+       fetchPosts() {
+        
        }
     }
 }
@@ -60,6 +72,12 @@ body {
 }
 
 .title {
-    margin-bottom: 1em;
+    text-align: center;
+}
+
+.post-form-add {
+    text-align: center;
+    margin-top: 25px;
+    width: 15%;
 }
 </style>

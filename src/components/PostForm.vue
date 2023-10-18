@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent>
-            <h4 class="title">Создание поста</h4>
+            <h4 class="post-form__title">Создание поста</h4>
             <InputComponent 
                 v-model="post.title"
                 type="text" 
@@ -57,5 +57,9 @@ form {
 .form__button {
     margin-bottom: 1em;
     align-self: flex-end;
+}
+
+.post-form__title {
+    margin-bottom: 1em;
 }
 </style>
