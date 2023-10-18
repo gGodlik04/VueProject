@@ -1,8 +1,10 @@
 <template>
     <div class="container">
-        <PostForm
-            @create="createPost"
-        />
+        <Modal :show="true">
+            <PostForm
+                @create="createPost"
+            />
+        </Modal>
         <PostList 
             :posts="posts"
             @removePost="removePost"
@@ -13,11 +15,13 @@
 <script>
 import PostForm from "@/components/PostForm.vue"
 import PostList from "@/components/PostList.vue"
+import Modal from "./components/UI/Modal.vue";
 
 export default {
     components: {
-        PostForm, PostList,
-    },
+    PostForm, PostList,
+    Modal
+},
     data() {
         return {
             posts: [
