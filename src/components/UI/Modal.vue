@@ -1,6 +1,6 @@
 <template>
-    <div class="dialog" @click="hideModal" v-if="show === true ">
-        <div @click.stop class="dialog__content">
+    <div class="modal" @click="hideModal" v-if="show === true ">
+        <div @click.stop class="modal__content-dialog">
             <slot></slot>
         </div>
     </div>
@@ -22,7 +22,7 @@ export default {
 }
 </script>
 <style>
-    .dialog {
+    .modal {
         top: 0;
         bottom: 0;
         right: 0;
@@ -32,7 +32,7 @@ export default {
         display: flex;
     }
     
-    .dialog__content {
+    .modal__content-dialog {
         margin: auto;
         background-color: #002451;
         border: 2px #fff solid;
