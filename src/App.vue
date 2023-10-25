@@ -38,7 +38,7 @@
         >
             Идет загрузка...
         </ModalLoading>
-        <div class="page-wrapper">
+        <!-- <div class="page-wrapper">
             <div 
                 v-for="pageNumber in totalPage" 
                 class="page__item"
@@ -50,7 +50,7 @@
             >
                 {{ pageNumber }}
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -90,10 +90,10 @@ export default {
        modalShow() {
         this.modalVisible = true;
        },
-       changePage(pageNumber) {
-            this.fetchPosts();
-            this.page = pageNumber;
-       },
+    //    changePage(pageNumber) {
+    //         this.fetchPosts();
+    //         this.page = pageNumber;
+    //    },
        async fetchPosts() {
         try {
                 this.isLoading = true;
