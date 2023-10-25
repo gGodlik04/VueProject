@@ -38,7 +38,7 @@
         >
             Идет загрузка...
         </ModalLoading>
-        <div ref="observer" class="observer"></div>
+        <div ref="observerBlock" class="observer-block"></div>
         <!-- <div class="page-wrapper">
             <div 
                 v-for="pageNumber in totalPage" 
@@ -116,7 +116,7 @@ export default {
        },
        async loadMorePosts() {
         try {
-                this.isLoading = true;
+                this.page++;
                 const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
                     params: {
                         _page: this.page,
@@ -129,8 +129,6 @@ export default {
                 });
         } catch (error) {
             console.log(error);
-        } finally {
-            this.isLoading = false;
         }
        },
     },
@@ -138,13 +136,15 @@ export default {
         this.fetchPosts();
         const options = {
             rootMargin: "0px",
-            threshold: 1.0,
+            threshold: 0.1,
         };
-        const callback = function (entries, observer) {
-            console.log('yes');
+        const callback = (entries, observer) => {
+            if (entries[0].isIntersecting) {
+                this.loadMorePosts();
+            }
         };
         const observer = new IntersectionObserver(callback, options);
-        observer.observe(this.$refs.observer);
+        observer.observe(this.$refs.observerBlock);
     },
     computed: {
         sortPosts() {
@@ -229,8 +229,7 @@ export default {
         color: #000;
     }
 
-    .observer {
-        height: 30px;
-        background: red;
+    .observer-block {
+        height: 10px;
     }
 </style>
