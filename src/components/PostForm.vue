@@ -1,7 +1,8 @@
 <template>
     <form @submit.prevent>
             <h4 class="post-form__title">Создание поста</h4>
-            <InputComponent 
+            <InputComponent
+                v-focus
                 v-model="post.title"
                 type="text" 
                 placeholder="Название" 
