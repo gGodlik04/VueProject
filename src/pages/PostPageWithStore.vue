@@ -6,11 +6,12 @@
         >
             Страница с постами
         </h1>
-        <!-- <InputComponent
+        <InputComponent
             class="app_search" 
-            v-model="searchQuery"
+            :model-value="searchQuery"
+            @update:model-value="setSearchQuery"
             placeholder="Поиск..."
-        />             -->
+        />            
         <div class="app_buttons">
             <Button 
                 class="post-form-add" 
@@ -18,10 +19,11 @@
             >
                 Добавить пост
             </Button>
-            <!-- <SelectPart 
-                v-model="selectedSort"
+            <SelectPart 
+                :model-value="selectedSort"
+                @update:model-value="setSelectedSort"
                 :options="sortOptions"
-            /> -->
+            />
         </div>
         <ModalWindow v-model:show="modalVisible">
             <PostForm
@@ -59,7 +61,6 @@
 <script>
 import PostForm from "@/components/PostForm.vue";
 import PostList from "@/components/PostList.vue";
-import axios from 'axios';
 import {mapActions, mapGetters, mapMutations, mapState} from 'vuex';
 
 export default {
@@ -75,38 +76,24 @@ export default {
         ...mapActions({
             loadMorePosts: 'post/loadMorePosts',
             fetchPosts: 'post/fetchPosts',
+            removePost: 'post/removePost',
         }),
         ...mapMutations({
             setPage: 'post/setPage',
+            setSearchQuery: 'post/setSearchQuery',
+            setSelectedSort: 'post/setSelectedSort',
+            setPosts: 'post/setPosts',
         }),
        createPost(post) {
             this.posts.push(post);
             this.modalVisible = false;
        },
-       removePost (post) {
-            this.posts = this.posts.filter(p => p.id !== post.id);
-       },
        modalShow() {
         this.modalVisible = true;
        },
-    //    changePage(pageNumber) {
-    //         this.fetchPosts();
-    //         this.page = pageNumber;
-    //    },
     },
     mounted() {
         this.fetchPosts();
-        // const options = {
-        //     rootMargin: "0px",
-        //     threshold: 0.1,
-        // };
-        // const callback = (entries, observer) => {
-        //     if (entries[0].isIntersecting && this.page < this.totalPage) {
-        //         this.loadMorePosts();
-        //     }
-        // };
-        // const observer = new IntersectionObserver(callback, options);
-        // observer.observe(this.$refs.observerBlock);
     },
     computed: {
         ...mapState({   

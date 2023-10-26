@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const PostModuleStore = {
     state: () => ({
         posts: [],
@@ -23,7 +25,7 @@ export const PostModuleStore = {
         }
     },
     mutations: {
-        setPost(state, posts) {
+        setPosts(state, posts) {
             state.posts = posts;
         },
         setLoading(state, bool) {
@@ -49,6 +51,9 @@ export const PostModuleStore = {
         },
     },
     actions: {
+        removePost ({state, commit}, post) {
+            commit('setPosts', state.posts.filter(p => p.id !== post.id));
+        },
         async fetchPosts({state, commit}) {
             try {
                 commit('setLoading', true);
@@ -60,7 +65,7 @@ export const PostModuleStore = {
                     })
                     .then(res => {
                         commit('setTotalPage', Math.ceil(res.headers['x-total-count'] / state.limit));
-                        commit('setPost', res.data);    
+                        commit('setPosts', res.data);    
                     });
             } catch (error) {
                 console.log(error);
@@ -79,7 +84,7 @@ export const PostModuleStore = {
                     })
                     .then(res => {
                         commit('setTotalPage', Math.ceil(res.headers['x-total-count'] / state.limit));
-                        commit('setPost', [...state.posts, ...res.data]);
+                        commit('setPosts', [...state.posts, ...res.data]);
                     });
             } catch (error) {
                 console.log(error);
