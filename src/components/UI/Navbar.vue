@@ -2,7 +2,7 @@
     <div class="navbar">
         <Button @click="$router.push('/')" class="navbar-main__buttons">Главная</Button>
         <Button @click="$router.push('/user-post')" class="navbar-main__buttons">Пользователи</Button>
-        <Button class="navbar-main__buttons">Страница</Button>
+        <Button @click="$router.push('/vuex-store')" class="navbar-main__buttons">Vuex store app</Button>
     </div>
 </template>
 <script>

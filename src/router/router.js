@@ -1,6 +1,7 @@
 import Main from '@/pages/Main';
 import UserPage from '@/pages/UserPage';
 import PostPage from '@/pages/PostPage';
+import PostPageWithStore from '@/pages/PostPageWithStore';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 
@@ -16,6 +17,10 @@ const routes = [
     {
         path: '/user-post/:id/',
         component: PostPage
+    },
+    {
+        path: '/vuex-store',
+        component: PostPageWithStore,
     }
 ]
 
