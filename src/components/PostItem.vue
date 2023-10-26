@@ -4,12 +4,19 @@
             <div><strong>Название: </strong> {{ post.title }}</div>
             <div><strong>Описание: </strong> {{ post.body }}</div>
         </div>
-        <Button 
-            @click="$emit('removePost', post)"
-            class="post__btn"
-        >
-            Удалить
-        </Button>
+        <div class="post__btns-wraper">
+            <Button
+                @click=""
+            >
+                Открыть
+            </Button>
+            <Button 
+                @click="$emit('removePost', post)"
+                class="post__btn"
+            >
+                Удалить
+            </Button>
+        </div>
     </div>
 </template>
 <script>
@@ -36,7 +43,12 @@ export default {
         background-color: #001733;
     }
 
+    .post__btns-wraper {
+        display: flex;
+        margin-left: 10px;
+    }
     .post__btn {
+        margin-left: 10px;
         align-self: center;
     }
 </style>

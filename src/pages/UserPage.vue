@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <Navbar class="user__navbar"></Navbar>
         <h1 
             class="title"
         >
@@ -220,5 +221,10 @@ export default {
 
     .observer-block {
         height: 10px;
+    }
+
+    .user__navbar {
+        background-color: #002451;
+        margin-bottom: 10px;
     }
 </style>
