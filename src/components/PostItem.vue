@@ -6,7 +6,7 @@
         </div>
         <div class="post__btns-wraper">
             <Button
-                @click=""
+                @click="$router.push(`/user-post/${post.id}`)"
             >
                 Открыть
             </Button>

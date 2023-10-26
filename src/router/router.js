@@ -1,6 +1,6 @@
 import Main from '@/pages/Main';
 import UserPage from '@/pages/UserPage';
-import PostPage from '@/pages/UserPage';
+import PostPage from '@/pages/PostPage';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 
