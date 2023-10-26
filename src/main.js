@@ -1,12 +1,17 @@
 import { createApp } from 'vue'
 import App from './App'
 import components from '@/components/UI'
-import router from './router/router'
+import router from '@/router/router'
+import VDirectives from '@/directives'
 
 const app = createApp(App)
 
 components.forEach(component => {
     app.component(component.name, component)
+})
+
+VDirectives.forEach(directive => {
+    app.directive(directive.name, directive)
 })
 
 app

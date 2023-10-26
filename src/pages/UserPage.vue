@@ -39,7 +39,7 @@
         >
             Идет загрузка...
         </ModalLoading>
-        <div ref="observerBlock" class="observer-block"></div>
+        <div v-intersection="{loadMorePosts}" class="observer-block"></div>
         <!-- <div class="page-wrapper">
             <div 
                 v-for="pageNumber in totalPage" 
@@ -135,17 +135,17 @@ export default {
     },
     mounted() {
         this.fetchPosts();
-        const options = {
-            rootMargin: "0px",
-            threshold: 0.1,
-        };
-        const callback = (entries, observer) => {
-            if (entries[0].isIntersecting && this.page < this.totalPage) {
-                this.loadMorePosts();
-            }
-        };
-        const observer = new IntersectionObserver(callback, options);
-        observer.observe(this.$refs.observerBlock);
+        // const options = {
+        //     rootMargin: "0px",
+        //     threshold: 0.1,
+        // };
+        // const callback = (entries, observer) => {
+        //     if (entries[0].isIntersecting && this.page < this.totalPage) {
+        //         this.loadMorePosts();
+        //     }
+        // };
+        // const observer = new IntersectionObserver(callback, options);
+        // observer.observe(this.$refs.observerBlock);
     },
     computed: {
         sortPosts() {
