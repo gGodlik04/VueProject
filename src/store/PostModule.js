@@ -86,4 +86,5 @@ export const PostModuleStore = {
             }
            },
     },
+    namespaced: true,
 }

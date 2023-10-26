@@ -10,7 +10,7 @@
             class="app_search" 
             v-model="searchQuery"
             placeholder="Поиск..."
-        />            
+        />             -->
         <div class="app_buttons">
             <Button 
                 class="post-form-add" 
@@ -18,10 +18,10 @@
             >
                 Добавить пост
             </Button>
-            <SelectPart 
+            <!-- <SelectPart 
                 v-model="selectedSort"
                 :options="sortOptions"
-            />
+            /> -->
         </div>
         <ModalWindow v-model:show="modalVisible">
             <PostForm
@@ -39,8 +39,8 @@
         >
             Идет загрузка...
         </ModalLoading>
-        <div v-intersection="{loadMorePosts}" class="observer-block"></div> -->
-        <!-- <div class="page-wrapper">
+        <div v-intersection="{loadMorePosts}" class="observer-block"></div>
+        <div class="page-wrapper">
             <div 
                 v-for="pageNumber in totalPage" 
                 class="page__item"
@@ -52,7 +52,7 @@
             >
                 {{ pageNumber }}
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -60,6 +60,7 @@
 import PostForm from "@/components/PostForm.vue";
 import PostList from "@/components/PostList.vue";
 import axios from 'axios';
+import {mapActions, mapGetters, mapMutations, mapState} from 'vuex';
 
 export default {
     components: {
@@ -70,6 +71,18 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            searchInSortedPosts: 'post/searchInSortedPosts'
+        }),
+        ...mapGetters({
+
+        }),
+        ...mapMutations({
+
+        }),
+        ...mapState({   
+
+        }),
        createPost(post) {
             this.posts.push(post);
             this.modalVisible = false;
@@ -87,24 +100,24 @@ export default {
     },
     mounted() {
         this.fetchPosts();
-        // const options = {
-        //     rootMargin: "0px",
-        //     threshold: 0.1,
-        // };
-        // const callback = (entries, observer) => {
-        //     if (entries[0].isIntersecting && this.page < this.totalPage) {
-        //         this.loadMorePosts();
-        //     }
-        // };
-        // const observer = new IntersectionObserver(callback, options);
-        // observer.observe(this.$refs.observerBlock);
+        const options = {
+            rootMargin: "0px",
+            threshold: 0.1,
+        };
+        const callback = (entries, observer) => {
+            if (entries[0].isIntersecting && this.page < this.totalPage) {
+                this.loadMorePosts();
+            }
+        };
+        const observer = new IntersectionObserver(callback, options);
+        observer.observe(this.$refs.observerBlock);
     },
     computed: {
     },  
     watch: {
-        // loadPage() {
-        //     this.fetchPosts();
-        // }
+        loadPage() {
+            this.fetchPosts();
+        }
     }
 }
 </script>
