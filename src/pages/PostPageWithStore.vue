@@ -68,20 +68,16 @@ export default {
 },
     data() {
         return {
+            modalVisible: false,
         }
     },
     methods: {
         ...mapActions({
-            searchInSortedPosts: 'post/searchInSortedPosts'
-        }),
-        ...mapGetters({
-
+            loadMorePosts: 'post/loadMorePosts',
+            fetchPosts: 'post/fetchPosts',
         }),
         ...mapMutations({
-
-        }),
-        ...mapState({   
-
+            setPage: 'post/setPage',
         }),
        createPost(post) {
             this.posts.push(post);
@@ -100,19 +96,33 @@ export default {
     },
     mounted() {
         this.fetchPosts();
-        const options = {
-            rootMargin: "0px",
-            threshold: 0.1,
-        };
-        const callback = (entries, observer) => {
-            if (entries[0].isIntersecting && this.page < this.totalPage) {
-                this.loadMorePosts();
-            }
-        };
-        const observer = new IntersectionObserver(callback, options);
-        observer.observe(this.$refs.observerBlock);
+        // const options = {
+        //     rootMargin: "0px",
+        //     threshold: 0.1,
+        // };
+        // const callback = (entries, observer) => {
+        //     if (entries[0].isIntersecting && this.page < this.totalPage) {
+        //         this.loadMorePosts();
+        //     }
+        // };
+        // const observer = new IntersectionObserver(callback, options);
+        // observer.observe(this.$refs.observerBlock);
     },
     computed: {
+        ...mapState({   
+            posts: state => state.post.posts,
+            isLoading: state => state.post.isLoading,
+            selectedSort: state => state.post.selectedSort,
+            sortOptions: state => state.post.sortOptions,
+            searchQuery: state => state.post.searchQuery,
+            page: state => state.post.page,
+            limit: state => state.post.limit,
+            totalPage: state => state.post.totalPage,
+        }),
+        ...mapGetters({
+            sortPosts: 'post/sortPosts',
+            searchInSortedPosts: 'post/searchInSortedPosts'
+        }),
     },  
     watch: {
         loadPage() {

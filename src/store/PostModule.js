@@ -49,9 +49,9 @@ export const PostModuleStore = {
         },
     },
     actions: {
-        async fetchPosts(state, commit) {
+        async fetchPosts({state, commit}) {
             try {
-                    commit('setLoading', true);
+                commit('setLoading', true);
                     const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
                         params: {
                             _page: state.page,
@@ -60,7 +60,7 @@ export const PostModuleStore = {
                     })
                     .then(res => {
                         commit('setTotalPage', Math.ceil(res.headers['x-total-count'] / state.limit));
-                        commit('setPosts', res.data);    
+                        commit('setPost', res.data);    
                     });
             } catch (error) {
                 console.log(error);
@@ -68,9 +68,9 @@ export const PostModuleStore = {
                 commit('setLoading', false);
             }
            },
-           async loadMorePosts(state, commit) {
+           async loadMorePosts({state, commit}) {
             try {
-                    commit('setPage', state.page++)
+                    commit('setPage', state.page += 1)
                     const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
                         params: {
                             _page: state.page,
@@ -78,8 +78,8 @@ export const PostModuleStore = {
                         }
                     })
                     .then(res => {
-                        commit('setTotalPage', Math.ceil(res.headers['x-total-count'] / this.limit));
-                        commit('setPosts', [...this.posts, ...res.data]);
+                        commit('setTotalPage', Math.ceil(res.headers['x-total-count'] / state.limit));
+                        commit('setPost', [...state.posts, ...res.data]);
                     });
             } catch (error) {
                 console.log(error);
